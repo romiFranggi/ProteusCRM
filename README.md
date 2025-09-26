@@ -102,19 +102,13 @@ La interfaz tambien contiene boton para resetear los filtros, volviendo a los da
 
 ## CALCULO DE METRICAS:
 
-Contactabilidad % =
-
-(Gestiones efectivas / Total gestiones) * 100
+Contactabilidad % =  (Gestiones efectivas / Total gestiones) * 100
 
 
-Penetración Bruta % =
-
-(Gestiones exitosas / Total gestiones) * 100
+Penetración Bruta % =  (Gestiones exitosas / Total gestiones) * 100
 
 
-Penetración Neta % =
-
-(Gestiones exitosas / Gestiones efectivas) * 100
+Penetración Neta % =  (Gestiones exitosas / Gestiones efectivas) * 100
 
 -----> IMPORTANTE <-----
 
@@ -123,6 +117,7 @@ Coordinado, Contactado, No interesado, Volver a llamar, Menor de edad, Ya tiene 
 
 y gestiones EXITOSAS asumo que son:
 Coordinado, Agendado
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## EJEMPLOS DE CONSULTAS SQL
