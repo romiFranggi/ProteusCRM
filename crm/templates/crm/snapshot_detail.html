@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Snapshot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2E86C1;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        header a:hover {
+            background-color: white;
+            color: #2E86C1;
+        }
+
+        .container {
+            padding: 20px 40px;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .metric {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: 30%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .filters-used {
+            background-color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .filters-used ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .filters-used li {
+            margin: 5px 0;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #2E86C1;
+            text-decoration: none;
+            border: 1px solid #2E86C1;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #2E86C1;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Detalle Snapshot</h1>
+    <a href="{% url 'logout' %}">Cerrar sesión</a>
+</header>
+
+<div class="container">
+    <h2 style="text-align:center; margin-bottom:20px;">Fecha: {{ snapshot.created_at }}</h2>
+
+    <!-- KPIs generales -->
+    <div class="metrics">
+        <div class="metric">
+            <h3>Contactabilidad</h3>
+            <p>{{ snapshot.contactabilidad }}%</p>
+        </div>
+        <div class="metric">
+            <h3>Penetración Bruta</h3>
+            <p>{{ snapshot.penetracion_bruta }}%</p>
+        </div>
+        <div class="metric">
+            <h3>Penetración Neta</h3>
+            <p>{{ snapshot.penetracion_neta }}%</p>
+        </div>
+    </div>
+
+    <!-- Filtros aplicados -->
+    <div class="filters-used">
+        <h3>Filtros usados:</h3>
+        <ul>
+            <li>Agente: {{ filtros.id_agente|default:"Todos" }}</li>
+            <li>Campaña: {{ filtros.id_campania|default:"Todas" }}</li>
+            <li>Fecha inicio: {{ filtros.fecha_inicio|default:"-" }}</li>
+            <li>Fecha fin: {{ filtros.fecha_fin|default:"-" }}</li>
+        </ul>
+    </div>
+
+    <a class="back-link" href="{% url 'snapshots_list' %}">Volver a la lista de snapshots</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard CRM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Barra superior */
+        header {
+            background-color: #2E86C1;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        header a:hover {
+            background-color: white;
+            color: #2E86C1;
+        }
+
+        /* Contenedor principal */
+        .container {
+            padding: 20px 40px;
+        }
+
+        /* Mensaje */
+        .message {
+            text-align: center;
+            margin: 10px 0;
+            color: green;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* Filtros */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filters form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, input[type="date"], button {
+            padding: 6px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #2E86C1;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #1B4F72;
+        }
+
+        /* Métricas */
+        .metrics {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .metric {
+            flex: 1 1 200px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .metric h2 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .metric p {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+            color: #2E86C1;
+        }
+
+        /* Tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #e8f4fc;
+        }
+
+        /* Botones de snapshot */
+        .snapshot-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Dashboard CRM</h1>
+    <a href="{% url 'logout' %}">Cerrar sesión</a>
+</header>
+
+<div class="container">
+
+    <!-- Mensaje de snapshot guardado -->
+    <div id="snapshot-message" class="message">
+        ✅ Snapshot guardado correctamente
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('save_snapshot') === '1') {
+                const msg = document.getElementById('snapshot-message');
+                msg.style.display = 'block';
+                setTimeout(() => { msg.style.display = 'none'; }, 3000);
+            }
+        });
+    </script>
+
+    <!-- Formulario de filtros -->
+    <div class="filters">
+        <form method="get" action="{% url 'dashboard' %}">
+            <label>Fecha inicio:
+                <input type="date" name="fecha_inicio" value="{{ filtros.fecha_inicio }}">
+            </label>
+            <label>Fecha fin:
+                <input type="date" name="fecha_fin" value="{{ filtros.fecha_fin }}">
+            </label>
+            <label>Agente:
+                <select name="id_agente">
+                    <option value="">Todos</option>
+                    {% for agente in agentes %}
+                        <option value="{{ agente.id }}" {% if filtros.id_agente == agente.id %}selected{% endif %}>
+                            {{ agente.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>Campaña:
+                <select name="id_campania">
+                    <option value="">Todas</option>
+                    {% for camp in campañas %}
+                        <option value="{{ camp.id }}" {% if filtros.id_campania == camp.id %}selected{% endif %}>
+                            {{ camp.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </label>
+            <button type="submit">Aplicar filtros</button>
+        </form>
+
+        <!-- Botón reset -->
+        <form method="get" action="{% url 'dashboard' %}">
+            <button type="submit">Resetear filtros</button>
+        </form>
+    </div>
+
+    <!-- Botones para snapshots -->
+    <div class="snapshot-buttons">
+        <form method="get" action="{% url 'dashboard' %}">
+            {% for key, value in filtros.items %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endfor %}
+            <input type="hidden" name="save_snapshot" value="1">
+            <button type="submit">Guardar Snapshot</button>
+        </form>
+
+        <form method="get" action="{% url 'snapshots_list' %}">
+            <button type="submit">Ver Snapshots Guardados</button>
+        </form>
+    </div>
+
+    <!-- Métricas -->
+    <div class="metrics">
+        <div class="metric">
+            <h2>Contactabilidad</h2>
+            <p>{{ contactabilidad }}%</p>
+        </div>
+        <div class="metric">
+            <h2>Penetración Bruta</h2>
+            <p>{{ penetracion_bruta }}%</p>
+        </div>
+        <div class="metric">
+            <h2>Penetración Neta</h2>
+            <p>{{ penetracion_neta }}%</p>
+        </div>
+    </div>
+
+    <!-- Tabla detallada -->
+    <table>
+        <thead>
+            <tr>
+                <th>Agente</th>
+                <th>Campaña</th>
+                <th>Total Gestiones</th>
+                <th>Gestiones Efectivas</th>
+                <th>Gestiones Exitosas</th>
+                <th>Contactabilidad %</th>
+                <th>Penetración Bruta %</th>
+                <th>Penetración Neta %</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if detalle %}
+                {% for row in detalle %}
+                <tr>
+                    <td>{{ row.agente_nombre }}</td>
+                    <td>{{ row.campania_nombre }}</td>
+                    <td>{{ row.total_gestiones }}</td>
+                    <td>{{ row.gestiones_efectivas }}</td>
+                    <td>{{ row.gestiones_exitosas }}</td>
+                    <td>{{ row.contactabilidad }}%</td>
+                    <td>{{ row.penetracion_bruta }}%</td>
+                    <td>{{ row.penetracion_neta }}%</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8" style="text-align:center;">No hay datos para mostrar</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
