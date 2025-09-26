@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extension
+*.so
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3      # Base de datos local de desarrollo
+db.sqlite3
+
+# Media / archivos subidos por usuarios
+media/
+staticfiles/
+
+# Env variables
+.env
+venv/
+ENV/
+env/
+*.env
+
+# PyCharm
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Mac / Linux
+.DS_Store
+*.swp
+*.swo
