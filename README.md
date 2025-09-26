@@ -76,9 +76,11 @@ python manage.py migrate
 python manage.py runserver
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## USUARIO DEMO PARA LOGUEARSE
-**usuario**: amartinez
-**contraseña**: hashabc
+## Usuario demo para loguearse
+
+**Usuario:** amartinez  
+**Contraseña:** hashabc
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## DATOS DE EJEMPLO Y FLUJO DEL SISTEMA
