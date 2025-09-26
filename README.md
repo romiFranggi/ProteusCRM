@@ -73,7 +73,7 @@ en mi caso use prueba_tecnica_estructura_db.sql sin hacerle cambios.
 python manage.py migrate
 
 ### 7. Ejecutar proyecto
--python manage.py runserver
+- python manage.py runserver
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## USUARIO DEMO PARA LOGIN
@@ -89,12 +89,14 @@ La aplicación incluye un botón en la interfaz que permite guardar snapshots de
 
 Para generar los datos de ejemplo:
 
--Ejecutar el proyecto (python manage.py runserver).
--Abrir el navegador en http://127.0.0.1:8000.
--Loguearse con el usuario de un supervisor.
--Una vez ingresado al dashboard , seleccionar filtros (opcional)
--En caso de seleccionar filtros, presionar el boton "Aplicar filtros", si no se presiona no habrá cambios en los datos ni en los snapshots que se guarden
--Hacer clic en el botón “Guardar snapshot”.
+
+- Ejecutar el proyecto: `python manage.py runserver`
+- Abrir el navegador en [http://127.0.0.1:8000](http://127.0.0.1:8000)
+- Loguearse con el usuario de un supervisor
+- Una vez ingresado al dashboard, seleccionar filtros (opcional)
+- En caso de seleccionar filtros, presionar el botón **"Aplicar filtros"**; si no se presiona no habrá cambios en los datos ni en los snapshots que se guarden
+- Hacer clic en el botón **"Guardar snapshot"**
+
 
 Esto llenará la tabla con registros de snapshots de ejemplo, permitiendo probar la funcionalidad de la aplicación sin necesidad de cargar manualmente la base de datos.
 
