@@ -15,7 +15,11 @@ Se priorizó la entrega de funcionalidades clave y la interfaz gráfica, siguien
    - Configurar la conexión de Python con MySQL.  
    - Implementar el cálculo de las métricas de contactabilidad y penetraciones.  
    - Desarrollar el dashboard que muestra los resultados de manera visual.  
-   - Implementar filtros y snapshots para facilitar la navegación y el análisis de los datos.  
+   - Implementar filtros y snapshots para facilitar la navegación y el análisis de los datos.
+   - Generar consultas sql de ejemplo.
+   - Implementar Login, Logout y restriccion de rutas.
+   - Aplicar diseño a la interfaz UI.
+   - Publicar repositorio y redactar documentacion.
 
 Aunque la interfaz gráfica es sencilla, permite visualizar y analizar las métricas de forma clara, priorizando la funcionalidad sobre el diseño visual.
 
@@ -100,7 +104,8 @@ Para generar los datos de ejemplo:
 
 Esto llenará la tabla con registros de snapshots de ejemplo, permitiendo probar la funcionalidad de la aplicación sin necesidad de cargar manualmente la base de datos.
 
-La interfaz tambien contiene boton para resetear los filtros, volviendo a los datos normales, y otro para ver el historial de snapshots guardados.
+La interfaz tambien contiene boton para resetear los filtros, volviendo a los datos normales,  otro para ver el historial de snapshots guardados y un "Ver detalles" para 
+visualizar detalles del snapshot, ademas de la fecha, hora, y metricas, mostrará los filtros que se aplicaron (agente, campaña, y rango de fechas si corresponde).
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
