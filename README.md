@@ -73,12 +73,12 @@ en mi caso use prueba_tecnica_estructura_db.sql sin hacerle cambios.
 python manage.py migrate
 
 ### 7. Ejecutar proyecto
--python manage.py runserver
+python manage.py runserver
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## USUARIO DEMO PARA LOGUEARSE
--usuario: amartinez
--contraseña: hashabc
+**usuario**: amartinez
+**contraseña**: hashabc
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## DATOS DE EJEMPLO Y FLUJO DEL SISTEMA
