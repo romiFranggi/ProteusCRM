@@ -77,6 +77,7 @@ python manage.py migrate
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## USUARIO DEMO PARA LOGUEARSE
+
 usuario: amartinez
 contraseña: hashabc
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -122,8 +123,10 @@ Coordinado, Agendado
 
 ## EJEMPLOS DE CONSULTAS SQL
 
-script realizado a modo de pruebas sql:
 
+El siguiente script se utilizó para pruebas de métricas y snapshots en el proyecto:
+
+```sql
 CREATE DATABASE IF NOT EXISTS proteus_crm;
 USE proteus_crm;
 
@@ -148,7 +151,6 @@ SELECT
 FROM gestiones
 WHERE id_tipo = 1;
 
-
 -- penetracion neta
 SELECT 
     SUM(CASE WHEN id_resultado IN (1,2,8,9,10,13,14,15,16) AND id_tipo = 1 THEN 1 ELSE 0 END) AS efectivas,
@@ -161,13 +163,8 @@ FROM gestiones;
 
 -- comandos para eliminar todos los snapshots:
 SET SQL_SAFE_UPDATES = 0;
-
--- Borrar todos los snapshots para pruebas
 DELETE FROM crm_dashboardsnapshot;
-
--- Volver a activar Safe Updates
 SET SQL_SAFE_UPDATES = 1;
-
 
 -- Ver todos los snapshots guardados
 SELECT 
@@ -180,7 +177,6 @@ SELECT
 FROM crm_dashboardsnapshot
 ORDER BY created_at DESC;
 
-
 -- Ejemplo contactabilidad para un agente id 1 y campaña id 2
 SELECT 
     COUNT(*) AS total,
@@ -192,20 +188,17 @@ SELECT
 FROM gestiones
 WHERE id_broker = 1
   AND id_campaign = 2;
-  
+
 -- Obtener todos los contactos de una campaña con resultado "No contesta"
-SET @busqueda = 2;  -- campaña de id  2 
+SET @busqueda = 2;  
 SELECT id_contacto
 FROM gestiones
 WHERE id_campaign = @busqueda  
-  AND id_resultado = 2      -- "no contesta"
+  AND id_resultado = 2
 ORDER BY timestamp;
 
-
 -- Buscar contactos por CI o teléfono
-
--- Definir variable para búsqueda
-SET @busqueda = 66666666;   -- cambiar este valor por el parametro que se quiera
+SET @busqueda = 66666666;
 
 SELECT 
     c.id AS contacto_id,
@@ -226,10 +219,3 @@ WHERE c.ci = @busqueda
    OR t2.numero = @busqueda
    OR t3.numero = @busqueda
    OR t4.numero = @busqueda;
-
-
-
-
-
-
-
